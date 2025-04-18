@@ -21,6 +21,17 @@ const { fucksmg } = require("./lib/msg");
 const FileType = require("file-type");
 const fs = require("fs");
 const path = require("path");
+const axios = require("axios"); // Added for getBuffer
+
+// Define getBuffer function
+const getBuffer = async (url) => {
+  const response = await axios({
+    url,
+    method: "GET",
+    responseType: "arraybuffer",
+  });
+  return Buffer.from(response.data, "binary");
+};
 
 const store = makeInMemoryStore({
   logger: pino().child({ level: "silent", stream: "store" }),
@@ -32,7 +43,7 @@ async function connectWA() {
 
   const dragon = makeWASocket({
     version,
-    logger: pino({ level: "silent" }),
+    logger: pino({ level: "info" }), // Changed to "info"
     printQRInTerminal: true,
     browser: Browsers.macOS("Desktop"),
     auth: {
@@ -47,7 +58,7 @@ async function connectWA() {
 
   setInterval(() => {
     store.writeToFile("lib/src/store.json");
-  }, 3000);
+  }, 10000); // Changed to 10 seconds
 
   dragon.ev.on("connection.update", async (update) => {
     const { connection, lastDisconnect } = update;
