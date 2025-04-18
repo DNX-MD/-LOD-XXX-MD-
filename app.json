@@ -1,0 +1,17 @@
+{
+  "name": "LOD-XXX-MD",
+  "description": "whatsapp md bot build with nodejs",
+  "repository": "https://github.com/DNX-MD/-LOD-XXX-MD-",
+  "keywords": ["nodejs", "bot", "whatsapp bot", "whatsapp automation", "multi device"],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+    },
+    {
+      "url": "https://github.com/clhuang/heroku-buildpack-webp-binaries.git"
+    }
+  ]
+}
